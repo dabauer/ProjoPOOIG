@@ -36,5 +36,9 @@ Attributs PieceDominoGommettes:
 -gauche ,droite,haut-gauche,bas-gauche,haut-droite,bas-droite,droite de type Piece
 ****************************************************
 Attributs PiecePuzzle:
--int i,j,k,l (chaque chiffre caude une encoche(ou un bout) (null si bord )
+-int i,j,k,l (chaque chiffre caude une encoche(ou un bout) (null si bord ) (au plus 4 encoches)
+-4 private Piece haut,bas,gauche,droite
+*****************************************************
+Attributs PieceSaboteur:
+int i,j,k,l (chaque chiffre caude une encoche(ou un bout) (null si bord ) (au plus 4 connexions possibles)
 -4 private Piece haut,bas,gauche,droite

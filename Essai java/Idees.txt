@@ -13,3 +13,9 @@ une classe Domino (ou pas à voir):
 -une classe Tour et une class joueur 
 
 Interface pièce?? --> méthodes communes à implémenter (exemple PieceDomino implémente piece,PiecePuzzle implémente pièce etc...)
+
+-quand on pose une pièce,la pièce doit se souvenir de celle qui vient après et de son orientation(ses caractéristiques en général)
+-4 connections par pièceDomino (problème avec gommettes car 6 connections possibles)
+---> connection booléenne? 
+haut,bas,gauche ,droite? Liste de connections ou attribut?  soit null soit next.val ,donc tant que la co est null ,on peut ajouter une pièce, 
+si DéGauche=DéDroite alors vérifier si haut ou bas = null et la valeur 

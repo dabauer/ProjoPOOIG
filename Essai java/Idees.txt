@@ -42,3 +42,6 @@ Attributs PiecePuzzle:
 Attributs PieceSaboteur:
 int i,j,k,l (chaque chiffre caude une encoche(ou un bout) (null si bord ) (au plus 4 connexions possibles)
 -4 private Piece haut,bas,gauche,droite
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+

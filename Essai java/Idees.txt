@@ -19,3 +19,4 @@ Interface pièce?? --> méthodes communes à implémenter (exemple PieceDomino i
 ---> connection booléenne? 
 haut,bas,gauche ,droite? Liste de connections ou attribut?  soit null soit next.val ,donc tant que la co est null ,on peut ajouter une pièce, 
 si DéGauche=DéDroite alors vérifier si haut ou bas = null et la valeur 
+-l'aurientation de la pièce n'est pas forcémet nécessaire,il faut surtout déterminer la tête et là queue (défini comme DéGauche et DéDroite dans mon code de la classe Piece)

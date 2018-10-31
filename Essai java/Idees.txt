@@ -1,0 +1,15 @@
+n:y|y:m|m:x	
+nous partons sur la base d'un jeu de domino double-six ,donc de 28 dominos
+de 2 à 4 joueurs
+on commence avec 7 dominos chacun
+une classe Domino (ou pas à voir):
+-tableau de 2d avec deux attributs ,deux getteurs pour gauche et droite de la piece
+-il faut penser à la posisition des pieces (h ou v?)
+
+,un classe jeu(nommée Domino?),une classe "sac" avec toutes les pièces possibles et disponibles et peut-être pour la gestion des dominos et une linked list de pièces(pas soucieuse de l'ordre donc pratique pour rajouter sur une des extrémités )
+
+-Sac contient plusieurs Pieces(list de Pieces ?)
+
+-une classe Tour et une class joueur 
+
+Interface pièce?? --> méthodes communes à implémenter (exemple PieceDomino implémente piece,PiecePuzzle implémente pièce etc...)

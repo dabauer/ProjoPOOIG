@@ -21,11 +21,24 @@ haut,bas,gauche ,droite? Liste de connections ou attribut?  soit null soit next.
 si DéGauche=DéDroite alors vérifier si haut ou bas = null et la valeur 
 -l'aurientation de la pièce n'est pas forcémet nécessaire,il faut surtout déterminer la tête et là queue (défini comme DéGauche et DéDroite dans mon code de la classe Piece)
 
+Pour l'ajout de pieces on veut un systeme qui met la piece automatiquement, et qui demande à l'utilisateur s'il y a plus d'une possibilité
+
+==========
+INTERFACES :
+
 -Dans interface Piece:
   .methode toString();
-  .methode connection();
+  .methode boolean connection();
+  .boolean ajouterPiece(Piece pieceAAjouter); //Faire attention pas de recoupement
+  .boolean trouv
   .getteurs
   
+- Interface Sac:
+  .EnlevePiece
+  .Distribuer
+  .AfficheSac
+  .Remplir (instance of)
+ 
   Pour le saboteur,soit la carte appartient à carte soit à pièce
 Attributs PieceDomino:
 -int i et int j pour les valeurs de la pièce

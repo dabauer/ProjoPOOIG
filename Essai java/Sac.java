@@ -6,7 +6,7 @@ public class Sac{
 		sac=new ArrayList<Piece>();
 		remplirSac();
 	}
-	public void remplirSac(){
+	public void remplirSac(){ //fonction qui change en fonction du type de pièce
 		Piece p;
 		//int ref=0;
 		for(int i=0;i<7;i++){

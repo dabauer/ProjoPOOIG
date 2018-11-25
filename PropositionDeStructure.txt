@@ -1,0 +1,33 @@
+Classes:
+
+-Connexion (Puzzle, Domino)
+    -int valeur (condition pour la connexion a une autre co)
+    -Piece Parent (piece à laquelle appartient la co)
+    -Connexion voisine (final? probablement non car on peut implementer un retour en arriere pour annuler une action raté d'ajouterDomino ... un truc comme ca)
+
+-ConnexionG  extends Connexion (gommettes)
+    -int [] valeur (identifiant de la forme et de la couleur)
+    -attributs hérités
+
+-Piece (Domino)
+    -Connexion []
+
+-PieceP extends Piece (Puzzle)
+    -Connexion []
+    -int id (identifiant pour la piece du puzzle, dans l'affichage on pourra s'en servir pour montrer l'image de la piece du puzzle)
+
+-PieceG extends Piece (DominoGommettes)
+    -ConnexionG []
+
+-Plateau implements
+    -Piece d'origine
+    
+
+Méthodes, je ne suis pas sûr de si on devrait les mettres dans des interfaces ou directement dans les classes parentes
+
+-Connexion [] trouverCoLibres() ;
+-Connexion [] trouverCoCorres(Piece p) {tri sur trouverCoLibres()} ;        
+Ces deux methodes peuvent être surchargées dans tous les sens et overridé facilement, l'override pour les gommettes devra prendre en compte les cases ou il y a plusieurs connexions et ou il y a plus d'une contrainte prex. une piece avec une connexion 0=1 et une co 1=1 (ordre trigo)
+
+-void ajouterDomino(Piece p) pourra être surchargé aussi en fonction de s'il y'a plusieurs co libres etc... à la fin ou pourrait avoir une méthode englobante pour la gestion du jeu qui permettrait de gerer l'ajout de dominos en demandant ou le mettre seulement s'il y a plus d'une connexion possible.
+

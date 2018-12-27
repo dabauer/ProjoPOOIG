@@ -1,0 +1,9 @@
+Le plateau sera rempli dynamiquement, il faut donc une interface pour que les differents types de pieces soient utilisable: 
+-Pour le puzzle il faut pouvoir poser plusieurs ensembles de pieces en meme temps, qui peuvent être déplacés automatiquement
+-Pour les dominos il ny aura qu'un ensemble de pieces
+
+En gros on a les pieces avec les connexions qui font la base du jeu, puis linterface avec les differentes regles de jeu qui construit les ensembles de pieces et le plateau qui va faire le lien avec les vues graphiques et textuelles
+
+Il faut au moins une vue textuelle! Domino normal?
+
+

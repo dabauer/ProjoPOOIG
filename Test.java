@@ -6,8 +6,8 @@ public class Test {
 
 
 	public static void main (String [] args) {
-		//testsPieceConnexion();
-		testsPieceD();
+		testsPieceConnexion();
+		//testsPieceD();
 	}
 
 	public static void testsPieceConnexion() {
@@ -42,6 +42,18 @@ public class Test {
 		a.ajouterPiece(a.getCo(1),b.getCo(0));
 		System.out.print("Test ajouterPiece(conn,conn) a:truetrue r:");
 		System.out.println("" + a.aCoLibres() + a.aCoNonLibres());
+
+		// test pour Connexion.getCoCorres() OK
+		Piece c = new Piece ();
+		Piece d = new Piece ();
+		//c.ajouterPiece(c.getCo(1), d.getCo(0));
+		Connexion [] list2 = c.getCo(1).getCoCorres(d);
+		System.out.println("Test Connexoin.getCoCorres a:1 r:" + list2.length);
+		//test pour Piece.getCoCorres(), addCoCorresToList() OK
+		Connexion [][] list3 = c.getCoCorres(d);
+		System.out.println("Test Piece.getCoCorres, addCoCorresToList a:2 r:" + list3.length);
+
+
 	}
 
 	public static void testsPieceD() {

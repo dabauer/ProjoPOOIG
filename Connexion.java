@@ -59,13 +59,39 @@ public class Connexion {
 		return false;
 	}
 
+	/**
+	* Methode qui ajoute une connexion à la liste de connexions donnée en paramètre.
+	* @param list une liste de connexions à laquelle on va ajouter la connexion.
+	*/
 	public Connexion [] addCoToList (Connexion [] list) {
 		Connexion [] r = new Connexion [list.length + 1];
-		for (int i = 0; i < r.length; i++) {
-			if (i < list.length) r[i] = list[i];
-			else r[i] = this;
+		for (int i = 0; i < list.length; i++) {
+			r[i] = list[i];
 		}
+		r[list.length] = this;
 		return r;
 	}
 
+	/**
+	* Methode qui renvoie une liste de connexions avec les connexions correspondantes à la connexion this
+	* @param tab un tableau de connexions
+	*	@return une liste des connexions correspondantes à this.
+	*/
+	public Connexion [] getCoCorres (Connexion [] tab) {
+		Connexion [] r = new Connexion [0];
+		for (Connexion co : tab) {
+			if (this.compareCo(co)) r = co.addCoToList(r);
+		}
+		if (r.length > 0) return r;
+		return null;
+	}
+
+	/**
+	* Methode qui renvoie une liste de connexions avec les connexions correspondantes à la connexion this
+	* @param p2 une pièce.
+	*	@return une liste des connexions correspondantes à this.
+	*/
+	public Connexion [] getCoCorres (Piece p2) {
+		return this.getCoCorres(p2.getCo());
+	}
 }

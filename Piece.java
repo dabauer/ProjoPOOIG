@@ -103,17 +103,53 @@ public class Piece {
 		return false;
 	}
 
-	//a finir
-	public boolean compareCoLibres (Piece p2) {
-		if (this.aCoLibres() && p2.aCoLibres()) {
-			for (Connexion coP1 : this.getCoLibres()) {
-				for (Connexion coP2 : p2.getCoLibres()) {
+	/**
+	* Methode statique pour ajouter à une liste, une liste de paires de connexions correspondantes
+	* @param list une liste de liste de connexoins correspondantes
+	* @param co1 premiere connexion à ajouter.
+	*	@param co2 connexion correspondante à co1 à ajouter
+	*	@return une liste de liste de paires de connexions correspondantes
+	*/
+	public static Connexion [][] addCoCorresToList (Connexion [][] list, Connexion co1, Connexion co2) {
+		Connexion [][] r = new Connexion [list.length + 1][2];
+		for (int i = 0; i < list.length; i++) {
+			r[i][0] = list[i][0];
+			r[i][1] = list[i][1];
+		}
+		r[list.length][0] = co1;
+		r[list.length][1] = co2;
+		return r;
+	}
 
+	/**
+	*	Methode qui renvoie une liste de liste de paires de connexions correspondantes aux connections d'une piece.
+	*	@param tab est un tableau de connexions dont on veut garder celles qui correspondent à celles d'une pièce.
+	*	@return une liste de liste de paires de connexions correspondantes aux connexions d'une Piece.
+	*/
+	public Connexion [][] getCoCorres (Connexion [] tab) {
+		Connexion [][] r = new Connexion[0][2];
+		Connexion [] tmp;
+		for (Connexion coP1 : this.getCo()) {
+			tmp = coP1.getCoCorres(tab);
+			if (tmp != null) {
+				for (int i = 0; i < tmp.length; i++) {
+					r = addCoCorresToList(r,coP1,tmp[i]);
 				}
 			}
 		}
-		return false
+		if (r.length > 0) return r;
+		return null;
 	}
+
+	/**
+	*	Methode qui renvoie une liste de liste de paires de connexions correspondantes aux connections d'une piece.
+	*	@param p2 est une piece dont on veut garder les connexions qui correspondent à celles d'une pièce.
+	*	@return une liste de liste de paires de connexions correspondantes aux connexions d'une Piece.
+	*/
+	public Connexion [][] getCoCorres (Piece p2) {
+		return this.getCoCorres(p2.getCo());
+	}
+
 
 //Deuxieme partie pour les pieces
 
@@ -122,7 +158,8 @@ public class Piece {
 	* @param p2 la deuxieme piece
 	*/
 	public boolean ajouterPiece (Piece p2) {
-		if (this.aCoLibres() && p2.aCoLibres())
+		if (this.aCoLibres() && p2.aCoLibres()) p2 = new Piece();
+		return false;
 	}
 
 	/**

@@ -1,6 +1,6 @@
 public class Connexion {
 
-//Ici les deux premiers attributs peuvent être finaux 
+//Ici les deux premiers attributs peuvent être finaux
 	private final int valeur;
 	private final Piece parent;
 	private Connexion next;
@@ -8,6 +8,10 @@ public class Connexion {
 	public Connexion (int valeur, Piece parent) {
 		this.valeur = valeur;
 		this.parent = parent;
+	}
+
+	public String toString () {
+		return "Connexion valeur:" + this.valeur + " aNext:" + (this.next != null ? "Oui" : "Non");
 	}
 
 	public int getVal () {
@@ -48,11 +52,20 @@ public class Connexion {
 	*/
 	public boolean ajouterCo (Connexion co2) {
 		if (this.compareCo(co2) && this.estLibre() && co2.estLibre()) {
-			co1.setNext(co2);
-			co2.setNext(co1);
+			this.setNext(co2);
+			co2.setNext(this);
 			return true;
 		}
 		return false;
+	}
+
+	public Connexion [] addCoToList (Connexion [] list) {
+		Connexion [] r = new Connexion [list.length + 1];
+		for (int i = 0; i < r.length; i++) {
+			if (i < list.length) r[i] = list[i];
+			else r[i] = this;
+		}
+		return r;
 	}
 
 }

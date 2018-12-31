@@ -44,17 +44,35 @@ public class Piece {
 	}
 
 	/**
-	*	Méthode statique pour créer le
+	*	Méthode statique pour créer le int qui designera uniquement un ensemble de couleur et de forme avec la forme couleur0000forme.
+	*	Cette forme (c0000f) permet d'avoir un nombre à priori infini de combinaisons couleur et forme.
+	*	@param couleur un int qui désigne la couleur du domino.
+	*	@param forme un int qui désigne la forme du domino.
+	*	@return un int de la forme couleur0000forme.
 	*/
 	public static int makeIntG (int couleur, int forme) {
 		return Integer.parseInt(couleur + "0000" + forme);
 	}
 
+	/**
+	*	Méthode statique qui renvoie un tableau de int avec 2 valeurs
+	*	@param val1 int premier membre de la liste
+	*	@param val2 int deuxième membre de la liste
+	*	@return un tableau de ints de longeur 2.
+	*/
 	public static int [] makeTab2 (int val1, int val2) {
 		int [] r = {val1,val2};
 		return r;
 	}
 
+	/**
+	*	Méthode statique qui renvoie une tableau de int avec 4 valeurs
+	*	@param val1 int premier membre de la liste
+	*	@param val2 int deuxième membre de la liste
+	*	@param val3 int troisième membre de la liste
+	*	@param val4 int quatrième membre de la liste
+	*	@return un tableau de ints de longeur 4.
+	*/
 	public static int [] makeTab4 (int val1, int val2, int val3, int val4) {
 		int [] r = {val1,val2,val3,val4};
 		return r;
@@ -77,16 +95,11 @@ public class Piece {
 		return this.connexions[pos];
 	}
 
-	public void setCo (Connexion [] list) {
-		this.connexions = list;
-	}
-
-	public void setCo (int pos, Connexion c) {
-		this.connexions[pos] = c;
-	}
-
 //Première partie pour les connexions
 
+	/**
+	* Classe interne pour les connexions
+	*/
 	public class Connexion {
 
 	//Ici les deux premiers attributs peuvent être finaux
@@ -155,10 +168,13 @@ public class Piece {
 		}
 
 		/**
-		* Renvoie true si la connexion a une connexion voisine
-		* @return true si la connexion a une connexion next, false sinon
+		* Méthode qui renvoie true si la connexion peut accepter une nouvelle connexion
+		* Accommode PieceP les pièces pour le puzzle qui peuvent avoir des conneixons sans voisins désignés par un -1
+		* @return true si la connexion peut accepter une nouvelle connexion
 		*/
 		public boolean estLibre () {
+			//Premier if pour accommoder PieceP les pièces pour le puzzle qui peuvent avoir des conneixons sans voisins désignés par un -1
+			if (this.parent instanceof PieceP) return (this.next == null && this.valeur != -1);
 			return (this.next == null);
 		}
 
@@ -167,8 +183,7 @@ public class Piece {
 		* @param co2 la deuxieme connexion
 		*/
 		public boolean valCoEstEgal (Connexion co2) {
-			if (this.getVal() == co2.getVal()) return true;
-			return false;
+			return (this.getVal() == co2.getVal());
 		}
 
 		/**
@@ -300,8 +315,7 @@ public class Piece {
 	* @return true s'il y a des connexions non libres
 	*/
 	public boolean aCoNonLibres () {
-		if (this.getNbCoNonLibres () > 0) return true;
-		return false;
+		return (this.getNbCoNonLibres () > 0);
 	}
 
 	/**
@@ -309,8 +323,7 @@ public class Piece {
 	* @return true s'il y a des connexions libres
 	*/
 	public boolean aCoLibres () {
-		if (this.getNbCoLibres () > 0) return true;
-		return false;
+		return (this.getNbCoLibres () > 0);
 	}
 
 	/**
@@ -370,6 +383,11 @@ public class Piece {
 		return this.getCoCorres(p2.getCo());
 	}
 
+	/**
+	*	Méthode qui renvoie les connexions correspondantes de deux pièces
+	*	@param p2 la pièce dont les connexions seront comparées à celles de this
+	*	@return un tableau de tableau de connexions avec deux connexions correspondantes par ligne.
+	*/
 	public Connexion [][] getCoCorresLibres (Piece p2) {
 		Connexion [][] r = new Connexion [0][2];
 		Connexion [][] tmp = this.getCoCorres(p2);
@@ -382,6 +400,11 @@ public class Piece {
 		return null;
 	}
 
+	/**
+	*	Méthode qui renvoie un boolean pour dire si une pièce contient une connexion.
+	*	@param c une connexion a rechercher dans les connexions d'une pièce.
+	*	@return true si la connexion c appartient bien a this
+	*/
 	public boolean contientCo (Connexion c) {
 		for (Connexion co : this.getCo()) {
 			if (c.equals(co)) return true;

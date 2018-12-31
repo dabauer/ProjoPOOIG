@@ -287,11 +287,21 @@ public class Test {
 		System.out.println("deux piece dont la seule connexion possible n'est plus libre a:false false r:" + ab.ajouterPiece(ae) + aa.ajouterPiece(ae));
 		//r:falsefalse
 
-	}
+		//test pour les pièces du bord
+		PieceP pa = new PieceP(1,1,-1,-1,4);
+		PieceP pb = new PieceP(2,-1,-1,1,2);
+		PieceP pc = new PieceP(3,-1,2,3,-1);
+		PieceP pd = new PieceP(4,3,4,-1,-1);
+		PieceP pt = new PieceP(5,1,2,3,4);
+		PieceP ps = new PieceP(6,-1,-1,-1,-1);
+		System.out.print("test piecep pour le bord a:truetruetruetrue r:" + pa.ajouterPiece(pb));
+		System.out.print(pc.ajouterPiece(pd));
+		System.out.print(pb.ajouterPiece(pc));
+		System.out.println(pd.ajouterPiece(pa));
 
-	public static void testsPieceG () {
-		System.out.println("========TEST PIECEG===========");
-		
+		System.out.println("test pour les bords a:falsefalsefalsefalse r:" + pt.ajouterPiece(pa) + pt.ajouterPiece(pb) + pt.ajouterPiece(pc) + pt.ajouterPiece(pd));
+		System.out.println("test pour connexions -1 a: falseX4 r:" +  ps.ajouterPiece(pa) + ps.ajouterPiece(pb) + ps.ajouterPiece(pc) + ps.ajouterPiece(pd));
+
 	}
 
 }

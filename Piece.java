@@ -1,5 +1,7 @@
 /**
 * classe parente pour toutes les pieces
+*	N'a que l'attribut avec un tableau de connexions de taille n, ainsi toutes les sous-classes pourront implémenter les méthodes de la sur-classe.
+* Il faudra seulement overrider les méthodes ajouterPiece pour prendre en compte les règles des différentes variantes.
 */
 
 public class Piece {
@@ -7,20 +9,227 @@ public class Piece {
 	private Connexion [] connexions;
 
 	/**
-	* Constructeur pour les pieces test
-	* @return une piece avec 2 connexions
+	* Constructeur pour les pieces à partir d'un tableau de Integer
+	*	@param vals, tableau de ints chaque élément de ce tableau sera ajouté comme une connexion.
 	*/
-	public Piece () {
-		Connexion co1 = new Connexion(1,this);
-		Connexion co2 = new Connexion(2,this);
-		this.connexions = new Connexion [2];
-		this.connexions [0] = co1;
-		this.connexions [1] = co2;
+	public Piece (int [] vals) {
+		this.connexions = new Connexion [vals.length];
+		for (int i = 0; i < vals.length; i++) {
+			this.connexions[i] = new Connexion(vals[i],this);
+		}
+	}
+
+	/**
+	*	Constructeur pour des pièces avec deux connexoins
+	*	@param val1 int pour la première connexion
+	* @param val2 int pour la seconde connexion
+	*/
+	public Piece (int val1, int val2) {
+		this(makeTab2(val1,val2));
+	}
+
+	/**
+	* Constructeur pour les pièces gommettes avec 6 connexions.
+	*	@param c1, int pour la couleur d'un côté du domino.
+	* @param f1, int pour la forme d'un côté du domino.
+	*	@param c2, int pour la couleur du seconde côté.
+	*	@param f2, int pour la forme du second côté.
+	*/
+	public Piece (int c1, int f1, int c2, int f2) {
+		this.connexions = new Connexion [6];
+		for (int i = 0; i < 6; i++) {
+			if (i == 0 || i == 1 || i == 5) this.connexions [i] = new Connexion (c1,f1,this);
+			if (i == 2 || i == 3 || i == 4) this.connexions [i] = new Connexion (c2,f2,this);
+		}
+	}
+
+	/**
+	*	Méthode statique pour créer le
+	*/
+	public static int makeIntG (int couleur, int forme) {
+		return Integer.parseInt(couleur + "0000" + forme);
+	}
+
+	public static int [] makeTab2 (int val1, int val2) {
+		int [] r = {val1,val2};
+		return r;
+	}
+
+	public static int [] makeTab4 (int val1, int val2, int val3, int val4) {
+		int [] r = {val1,val2,val3,val4};
+		return r;
+	}
+
+	/**
+	* Renvoie les connexions d'une pièce.
+	* @return les connexions de la piece
+	*/
+	public Connexion [] getCo () {
+		return this.connexions;
+	}
+
+	/**
+	* Renvoie la connexion à la position pos de la pièce.
+	* @param pos la position de la connexion voulue
+	* @return la connexion de la piece à la position pos
+	*/
+	public Connexion getCo (int pos) {
+		return this.connexions[pos];
+	}
+
+	public void setCo (Connexion [] list) {
+		this.connexions = list;
+	}
+
+	public void setCo (int pos, Connexion c) {
+		this.connexions[pos] = c;
 	}
 
 //Première partie pour les connexions
 
+	public class Connexion {
+
+	//Ici les deux premiers attributs peuvent être finaux
+		private final int valeur;
+		private final Piece parent;
+		private Connexion next;
+
+
+		/**
+		* Constructeur pour les connexions avec une valeur unique
+		*	@param valeur int pour la valeur de la connexions
+		* @param parent Piece a laquelle se refere la connexions
+		*/
+		public Connexion (int valeur, Piece parent) {
+			this.parent = parent;
+			this.valeur = valeur;
+		}
+
+		/**
+		* Constructeur pour les connexions des gomettes, crée un int avec la valeur de la couleur et de la forme séparé par quatres 0.
+		* Ainsi on peut reutiliser toutes les méthodes de la classe Connexion sans aucun problème d'héritage.
+		* @param couleur est un int qui représente la couleur (on pourra utiliser la representation en base 10 de la couleur pour simplifier l'affichage)
+		* @param forme est un int qui représente la forme sur le domino.
+		*/
+		public Connexion (int couleur, int forme, Piece parent) {
+			this(makeIntG(couleur,forme),parent);
+		}
+
+		/**
+		* Méthode qui renvoie un String décrivant la connexion
+		*/
+		public String toString () {
+			return "Connexion valeur:" + this.valeur + " aNext:" + (this.estLibre() ? "Non" : "Oui");
+		}
+
+		/**
+		* Renvoie la valeur associée à une connexion.
+		* @return la valeur de la connexion
+		*/
+		public int getVal () {
+			return this.valeur;
+		}
+
+		/**
+		* Renvoie la pièce parente à laquelle la connexion appartient.
+		* @return la piece parente de la connexion.
+		*/
+		public Piece getPar () {
+			return this.parent;
+		}
+
+		/**
+		* Renvoie la connexion voisine d'une connexion.
+		*	@return la connexion voisine
+		*/
+		public Connexion getNext () {
+			return this.next;
+		}
+
+		/**
+		* Ajoute une connexion comme voisine à la connexion.
+		* @param next une connexion qui sera ajouté à la connexion
+		*/
+		public void setNext (Connexion next) {
+			this.next = next;
+		}
+
+		/**
+		* Renvoie true si la connexion a une connexion voisine
+		* @return true si la connexion a une connexion next, false sinon
+		*/
+		public boolean estLibre () {
+			return (this.next == null);
+		}
+
+		/**
+		* Compare la connexion this à co2.
+		* @param co2 la deuxieme connexion
+		*/
+		public boolean valCoEstEgal (Connexion co2) {
+			if (this.getVal() == co2.getVal()) return true;
+			return false;
+		}
+
+		/**
+		* Ajoute deux connexion unes à unes, en vérifiant que c'est possible :
+		* -Les deux sont libres
+		* -Elles ont la même valeur
+		* -Elles ne sont sur la même pièce
+		* @param co2 la deuxieme connexion
+		*/
+		public boolean ajouterCo (Connexion co2) {
+			/*System.out.println(this.valCoEstEgal(co2));
+			System.out.println(this.estLibre());
+			System.out.println(co2.estLibre());
+			System.out.println(!this.getPar().equals(co2.getPar()));
+			*/if (this.valCoEstEgal(co2) && this.estLibre() && co2.estLibre() && !this.getPar().equals(co2.getPar()) ) {
+				this.setNext(co2);
+				co2.setNext(this);
+				return true;
+			}
+			return false;
+		}
+
+		/**
+		* Methode qui ajoute une connexion à la liste de connexions donnée en paramètre.
+		* @param list une liste de connexions à laquelle on va ajouter la connexion.
+		*/
+		public Connexion [] addCoToList (Connexion [] list) {
+			Connexion [] r = new Connexion [list.length + 1];
+			for (int i = 0; i < list.length; i++) {
+				r[i] = list[i];
+			}
+			r[list.length] = this;
+			return r;
+		}
+
+		/**
+		* Methode qui renvoie une liste de connexions avec les connexions correspondantes à la connexion this
+		* @param tab un tableau de connexions
+		*	@return une liste des connexions correspondantes à this.
+		*/
+		public Connexion [] getCoCorres (Connexion [] tab) {
+			Connexion [] r = new Connexion [0];
+			for (Connexion co : tab) {
+				if (this.valCoEstEgal(co)) r = co.addCoToList(r);
+			}
+			if (r.length > 0) return r;
+			return null;
+		}
+
+		/**
+		* Methode qui renvoie une liste de connexions avec les connexions correspondantes à la connexion this
+		* @param p2 une pièce.
+		*	@return une liste des connexions correspondantes à this.
+		*/
+		public Connexion [] getCoCorres (Piece p2) {
+			return this.getCoCorres(p2.getCo());
+		}
+	}
+
 	/**
+	*	Ajoute une connexion à une liste de connexions
 	* @param list : la liste des connexions à laquelle on veut ajouter co.
 	* @param co : la connexion à ajouter.
 	* @return une liste des connexions de list avec co ajouté à la fin.
@@ -29,39 +238,36 @@ public class Piece {
 		return co.addCoToList(list);
 	}
 
+	/**
+	* Renvoie un String qui décrit une pièce
+	*/
 	public String toString () {
 		String r = "";
-		r+= "Piece avec " + this.connexions.length + " connexions dont " + this.getNbCoLibres() + " libres.";
-		return r;
+		r+= "Piece avec " + this.connexions.length + " connexions dont " + this.getNbCoLibres() + " libres. valdescos:";
+		for (Connexion c : this.connexions) {
+			r+= c.getVal() + " " + c.estLibre() + ",";
+		}
+		return r + "\n";
 	}
 
 	/**
-	* @return les connexions de la piece
-	*/
-	public Connexion [] getCo () {
-		return this.connexions;
-	}
-
-	/**
-	* @param pos la position de la connexion voulue
-	* @return la connexion de la piece à la position pos
-	*/
-		public Connexion getCo (int pos) {
-			return this.connexions[pos];
-	}
-
-	/**
+	* Renvoie une liste avec les connexions libres d'une pièce
 	* @return les connexions libres d'une piece
 	*/
 	public Connexion [] getCoLibres () {
 		Connexion [] r = new Connexion [0];
-		for (Connexion c : this.getCo()) {
-			if (c.estLibre()) r = addCoToList(r,c);
+		Connexion [] tmp = this.getCo();
+		if (tmp != null) {
+			for (Connexion c : tmp) {
+				if (c.estLibre()) r = addCoToList(r,c);
+			}
 		}
-		return r;
+		if (r.length > 0) return r;
+		return null;
 	}
 
 	/**
+	* Renvoie une liste avec les connexions non libres d'une pièce.
 	* @return les connexions non libres d'une piece
 	*/
 	public Connexion [] getCoNonLibres () {
@@ -74,6 +280,7 @@ public class Piece {
 
 
 	/**
+	* Renvoie le nombre de connexions libres d'une pièce.
 	* @return le nombre de connexions libres
 	*/
 	public int getNbCoLibres () {
@@ -81,6 +288,7 @@ public class Piece {
 	}
 
 	/**
+	* Renvoie le nombre de connexions non libres d'une pièce.
 	* @return le nombre de connexions non libres
 	*/
 	public int getNbCoNonLibres () {
@@ -88,6 +296,7 @@ public class Piece {
 	}
 
 	/**
+	* Renvoie true s'il y a des connexions non libres.
 	* @return true s'il y a des connexions non libres
 	*/
 	public boolean aCoNonLibres () {
@@ -96,6 +305,7 @@ public class Piece {
 	}
 
 	/**
+	* Renvoie true s'il y a des connexions libres
 	* @return true s'il y a des connexions libres
 	*/
 	public boolean aCoLibres () {
@@ -119,6 +329,16 @@ public class Piece {
 		r[list.length][0] = co1;
 		r[list.length][1] = co2;
 		return r;
+	}
+
+	/**
+	* Methode statique pour ajouter à une liste, une liste de paires de connexions correspondantes
+	* @param list une liste de liste de connexoins correspondantes
+	* @param co liste avec les deux connexions à ajouter.
+	*	@return une liste de liste de paires de connexions correspondantes
+	*/
+	public static Connexion [][] addCoCorresToList (Connexion [][] list, Connexion [] co) {
+		return addCoCorresToList(list,co[0],co[1]);
 	}
 
 	/**
@@ -150,17 +370,27 @@ public class Piece {
 		return this.getCoCorres(p2.getCo());
 	}
 
+	public Connexion [][] getCoCorresLibres (Piece p2) {
+		Connexion [][] r = new Connexion [0][2];
+		Connexion [][] tmp = this.getCoCorres(p2);
+		if (tmp != null) {
+			for (Connexion [] cos : tmp) {
+				if (cos[0].estLibre() && cos[1].estLibre()) r = addCoCorresToList(r,cos);
+			}
+		}
+		if (r.length > 0) return r;
+		return null;
+	}
 
-//Deuxieme partie pour les pieces
-
-	/**
-	* Ajoute deux pieces ensemble automatiquement, en recherchant s'il est possible de le faire automatiquement
-	* @param p2 la deuxieme piece
-	*/
-	public boolean ajouterPiece (Piece p2) {
-		if (this.aCoLibres() && p2.aCoLibres()) p2 = new Piece();
+	public boolean contientCo (Connexion c) {
+		for (Connexion co : this.getCo()) {
+			if (c.equals(co)) return true;
+		}
 		return false;
 	}
+
+
+//Deuxieme partie pour les pieces
 
 	/**
 	* Ajouter deux pieces ensemble en choississant les deux connexions
@@ -169,9 +399,32 @@ public class Piece {
 	* @return true si les pièces ont étés ajoutées ou false si les pièces n'ont pas étés ajoutés
 	*/
 	public boolean ajouterPiece (Connexion co1, Connexion co2) {
-		co1.setNext(co2);
-		co2.setNext(co1);
-		return true;
+		return co1.ajouterCo(co2);
 	}
+
+	/**
+	* Ajoute deux pieces ensemble automatiquement, en recherchant s'il est possible de le faire automatiquement
+	*	Normalement s'il y a plusieurs possibilités ce n'est pas important de choisir la bonne connexoin
+	*	@param c1 la connexion voulue
+	* @param p2 la deuxieme piece
+	*/
+	public boolean ajouterPiece (Connexion c1, Piece p2) {
+		if (this.contientCo(c1) && p2.aCoLibres()) {
+			Connexion [] tmp = c1.getCoCorres(p2.getCoLibres());
+			return this.ajouterPiece(c1,tmp[0]);
+		}
+		return false;
+	}
+
+	/**
+	*	Ajoute deux pieces ensemble automatiquement, en effecutant la première liaison qui fonctionne si elle existe.
+	* @param p2 la pièce que l'on veut coller à la pièce this.
+	*/
+	public boolean ajouterPiece (Piece p2) {
+		Connexion [][] tmp = this.getCoCorresLibres(p2);
+		if (tmp != null) return this.ajouterPiece(tmp[0][0], tmp [0][1]);
+		return false;
+	}
+
 
 }

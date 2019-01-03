@@ -152,4 +152,8 @@ public class Connexion {
 		return this.getCoCorres(p2.getCo());
 	}
 
+  public boolean ajouterPiece(Piece p) {
+    return this.getPar().ajouterPiece(p);
+  }
+
 }

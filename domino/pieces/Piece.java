@@ -99,11 +99,6 @@ public class Piece {
 
 //Première partie pour les connexions
 
-
-
-//================= FIN DE CONNEXION ====================================
-
-
 	/**
 	*	Ajoute une connexion à une liste de connexions
 	* @param list : la liste des connexions à laquelle on veut ajouter co.
@@ -341,6 +336,7 @@ public class Piece {
 
 	public Piece [] getPieces () {
 		Piece [] r = new Piece [0];
+		r = this.addPieceToList(r);
 		for (Connexion c : this.connexions) {
 			if (c.hasNext()) r = c.getNext().getPar().addPieceToList(r);
 		}
@@ -348,7 +344,7 @@ public class Piece {
 	}
 
 	public Piece [] getPiecesRec () {
-		return this.getPiecesRec(this.getPieces());
+		return this.getPiecesRec(this.addPieceToList(this.getPieces()));
 	}
 
 	public Piece [] getPiecesRec (Piece [] list) {

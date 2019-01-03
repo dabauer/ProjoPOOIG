@@ -16,7 +16,9 @@ public interface Jouable {
   * Méthode qui trouve toutes les connexions libres d'un groupe de pièces.
   * @return toutes les connexions qui sont disponibles sur le groupe de pièces
   */
-  //public Connexions[] getCoLibres();
+  public Connexion [] getCoLibres();
+
+  public Connexion [] getCoCorresLibres (Connexion c);
 
   /**
   * Ajoute une pièce à la connexion voulue sur le plateau.
@@ -24,6 +26,6 @@ public interface Jouable {
   * @param c la connexion à laquelle ajouter p.
   * @return true si lajout à été fait
   */
-  //public boolean ajouterPiece(Piece p, Connexion c);
+  public boolean ajouterPiece(Piece p, Connexion c);
 
 }

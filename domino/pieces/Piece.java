@@ -4,6 +4,8 @@
 * Il faudra seulement overrider les méthodes ajouterPiece pour prendre en compte les règles des différentes variantes.
 */
 
+package domino.pieces;
+
 public class Piece {
 
 	private Connexion [] connexions;

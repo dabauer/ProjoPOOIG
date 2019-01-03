@@ -2,6 +2,8 @@
 * Classe pour les pieces domino normal
 */
 
+package domino.pieces;
+
 public class PieceD extends Piece {
 
   private int [] valeur = new int [2];

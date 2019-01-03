@@ -2,6 +2,8 @@
 * Classe pour les pièces de puzzle, ici un -1 désigne une connexion libre qui ne peut pas accepter de nouveau voisin (pour les bords)
 */
 
+package domino.pieces;
+
 public class PieceP extends Piece {
 
   private int valeur; //Pour identifier l'image

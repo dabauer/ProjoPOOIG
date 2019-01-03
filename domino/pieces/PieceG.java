@@ -2,6 +2,8 @@
 * Classe pour les pièces du domino gomettes
 */
 
+package domino.pieces;
+
 public class PieceG extends Piece {
 
   private Connexion [] connexions = new Connexion [6];

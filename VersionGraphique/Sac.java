@@ -1,4 +1,8 @@
 import java.util.*;
+
+//package ProjoPOOIG.domino.pieces;
+//import ProjoPOOIG.domino.pieces.PieceD;
+//import ProjoPOOIG.domino.jeu;
 public class Sac{
 	private ArrayList<PieceD> sac;
 	private static int nbPieces=28;

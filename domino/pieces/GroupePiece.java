@@ -52,6 +52,19 @@ public class GroupePiece implements Jouable {
     return null;
   }
 
+  public Connexion [] getCoCorresLibres (Piece p) {
+    Connexion [] coli = this.getCoLibres();
+    Connexion [] r = new Connexion [0];
+    if (coli != null && coli.length > 0) {
+      for (Connexion c : p.getCo()) {
+        for (Connexion cl : coli) {
+          if (cl.valCoEstEgal(c) && !cl.isInList(r)) r = cl.addCoToList(r);
+        }
+      }
+    }
+    return r.length > 0 ? r : null;
+  }
+
   public boolean ajouterPiece(Piece p, Connexion c) {
     if (c.estLibre() && this.contientCo(c)) return c.ajouterPiece(p);
     return false;

@@ -18,9 +18,10 @@ public class Test {
 	public static void testsGroupePiece() {
 		GroupePiece a = new GroupePiece(new PieceG(1,2,1,2));
 		Piece aa = new PieceG(1,2,1,2);
-		Connexion [] colibres = a.getCoLibres();
-		a.ajouterPiece(aa,colibres[0]);
-		System.out.println(a.getPieces().length);
+		Connexion [] colibres = a.getCoCorresLibres(aa);
+		System.out.println(colibres.length);
+		//a.ajouterPiece(aa,colibres[0]);
+		//System.out.println(a.getPieces().length);
 	}
 
 	public static void testsPieceConnexion() {

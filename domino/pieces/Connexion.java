@@ -156,4 +156,11 @@ public class Connexion {
     return this.getPar().ajouterPiece(p);
   }
 
+  public boolean isInList (Connexion [] list) {
+    for (Connexion c : list) {
+      if (c.equals(this)) return true;
+    }
+    return false;
+  }
+
 }

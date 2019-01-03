@@ -1,8 +1,8 @@
 import java.util.*;
 import java.math.*;
-//package ProjoPOOIG.domino.jeu;
+
 //import domino.pieces.PieceD;
-//import ProjoPOOIG.domino.jeu;
+
 
 public class Joueur{
 	private String nom;

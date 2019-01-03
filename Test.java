@@ -2,13 +2,23 @@
 * Classe test pour rassembler tous les tests, une fois un test reussi, on ajoute le resultat et on met le test en commentaire
 * Pour l'affichage du resultat on donne la methode testée, a: [le resultat attendu] r: [le resultat]
 */
+
+import domino.pieces.*;
+import domino.pieces.GroupePiece;
 public class Test {
 
 
 	public static void main (String [] args) {
-		testsPieceConnexion();
-		testsPieceD();
-		testsPieceP();
+		//testsPieceConnexion();
+		//testsPieceD();
+		//testsPieceP();
+		testsGroupePiece();
+	}
+
+	public static void testsGroupePiece() {
+		GroupePiece a = new GroupePiece(new PieceG(1,2,1,2));
+		a.getRacine().ajouterPiece(new PieceG(1,2,1,2));
+		 
 	}
 
 	public static void testsPieceConnexion() {

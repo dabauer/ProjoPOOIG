@@ -181,6 +181,13 @@ public class Piece {
 		}
 
 		/**
+		* Méthode qui renvoie true si la connexion a une pièce suivante
+		*/
+		public boolean hasNext() {
+			return this.next != null;
+		}
+
+		/**
 		* Compare la connexion this à co2.
 		* @param co2 la deuxieme connexion
 		*/
@@ -243,7 +250,11 @@ public class Piece {
 		public Connexion [] getCoCorres (Piece p2) {
 			return this.getCoCorres(p2.getCo());
 		}
+
 	}
+
+//================= FIN DE CONNEXION ====================================
+
 
 	/**
 	*	Ajoute une connexion à une liste de connexions
@@ -449,6 +460,54 @@ public class Piece {
 		Connexion [][] tmp = this.getCoCorresLibres(p2);
 		if (tmp != null) return this.ajouterPiece(tmp[0][0], tmp [0][1]);
 		return false;
+	}
+
+// ============= Méthodes pour classes externes ============================
+
+	public Piece [] addPieceToList (Piece [] list) {
+		if (!this.isInList(list)) {
+			Piece [] r = new Piece [list.length + 1];
+			for (int i = 0; i < list.length; i++) {
+				r[i] = list[i];
+			}
+			r[list.length] = this;
+			return r;
+		}
+		return list;
+	}
+
+	public boolean isInList (Piece [] list) {
+		for (Piece p : list) {
+			if (this.equals(p)) return true;
+		}
+		return false;
+	}
+
+
+	public static Piece [] addPieceListToList (Piece [] list1, Piece[] list2) {
+		for (Piece p : list2) {
+			list1 = p.addPieceToList(list1);
+		}
+		return list1;
+	}
+
+	public Piece [] getPieces () {
+		Piece [] r = new Piece [0];
+		for (Connexion c : this.connexions) {
+			if (c.hasNext()) r = c.getNext().getPar().addPieceToList(r);
+		}
+		return r;
+	}
+
+	public Piece [] getPiecesRec () {
+		return this.getPiecesRec(this.getPieces());
+	}
+
+	public Piece [] getPiecesRec (Piece [] list) {
+		for (Piece p : list) {
+			list = addPieceListToList(list,p.getPieces());
+		}
+		return list;
 	}
 
 

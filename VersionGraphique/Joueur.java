@@ -1,5 +1,9 @@
 import java.util.*;
 import java.math.*;
+//package ProjoPOOIG.domino.jeu;
+//import domino.pieces.PieceD;
+//import ProjoPOOIG.domino.jeu;
+
 public class Joueur{
 	private String nom;
 	private ArrayList<PieceD> main;
@@ -30,6 +34,17 @@ public class Joueur{
 		}
 		
 		return main;
+	}
+	public PieceD piocher(Sac s){
+		int n=-1;
+		PieceD p;
+		n=(int)(Math.random()*s.getNbPieces());
+		
+		p=s.distribuPiece(n);
+		System.out.println(p.getG()+" "+p.getD());
+		main.add(p);
+		s.enleverPieceSac(n);
+		return p;
 	}
 	public ArrayList<PieceD> getPiece(){
 		return main;

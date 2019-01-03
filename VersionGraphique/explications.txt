@@ -1,2 +1,13 @@
-je mets tout ça à part pour que tu vois car j'ai modifié la classe DominoD et je suis bie  sûre d'avoir tout compris dans ton organisation.
-Regarde ça et adapte le à ton code ,si t'as besoin d'explications ,demande les moi
+Désolé si ça te paraît brouillon mais j'arrive pas avec les histoires de package.
+J'essaie de continuer ça demain dans le blablacar si je peux.
+Regarde bien tout ce que j'ai fait (domino et puzzle)
+-pour le domino il faudrait créer un zone (plateau donc d'après tes fonctions) où on dépose les pièces
+-au lacher de la souris ,faire un test de connexion ,si false alors erreur et piocher
+-pour les différents joueur diviser l'ecran?
+
+-pour le puzzle,il faut faire une zone carrée de taille finale du puzzle et tester les connexion au lacher de la pièces
+:un bord =-1
+:un bout=1
+:un trou=0 (regarder le nom des photos pour comprendre)
+-pour rendre les pieces imobiles il suffirait normalement d'enlever l'event
+-problème au niveau de la pioche avec le domino. Le joueur pioche ,ça marche,mais la nouvelle pièce ne s'affiche pas...

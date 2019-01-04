@@ -16,6 +16,8 @@ import javax.swing.BorderFactory;
 import java.util.*;
 import javax.swing.BoxLayout;
 public class DominoFenetre extends JFrame{
+		private GroupePieceD gp;
+		private PieceD [] selected=new PieceD[2];
 		private int nbJoueur=2;
 		private Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		private int hauteur = (int)tailleEcran.getHeight();
@@ -38,6 +40,7 @@ public class DominoFenetre extends JFrame{
 			
 		/*}
 		private JPanel buildContentPane(){*/
+			
 			JPanel panel1 = new JPanel();
 			
 			 panel1.setLayout(new BoxLayout(panel1, BoxLayout.LINE_AXIS));
@@ -49,24 +52,9 @@ public class DominoFenetre extends JFrame{
 			panel1.add(piocher,BorderLayout.NORTH);
 			
 			afficheMain(panel1);
-			piocher.addActionListener(new ActionListener(){  
-           			 public void actionPerformed(ActionEvent e) {              
-                			PieceD p=Pioche(j1);
-					JButton b=new JButton("");
-					int i,j;
-					i=p.getG();
-					j=p.getD();
-					String iconfilePath = this.getClass().getClassLoader().getResource("Dice"+i+j+".png").getFile();
-					b.setIcon(new ImageIcon(iconfilePath));
-					b.setBorder(BorderFactory.createEmptyBorder());
-					b.setContentAreaFilled(false);
-					b.setFocusable(false);
-					panel1.add(b);
-					repaint();
-					/*bizarre le joueur pioche bien une piece(voir message affiche dans le terminal)mais la nouvelle piece n'apparait pas*/
-           			 }  
+			JButton b=pioche(piocher);
+			panel1.add(b);
 			
-           		}); 
 			JPanel panel2 = new JPanel();
 
   		  //Idem pour cette ligne
@@ -76,7 +64,17 @@ public class DominoFenetre extends JFrame{
   		  //panel2.add(new JButton("Bouton 2"));
 			racine(panel2);
   		  // juste pour vérifier si ça marche panel2.add(new JButton("Bouton 3"));
-			
+			if(selected[0]!=null && selected[1]!=null){
+				if(selected[0].peuventSeConnecter(selected[1])) {
+					gp.ajouterPiece(selected[0]);
+					j1.Poser(selected[0]);
+					afficheGroupePiece(panel2);
+				}
+				else{
+				JLabel erreur=new JLabel("erreur mauvaise connexion");
+				panel2.add(erreur);
+				afficheGroupePiece(panel2);}
+			}
 			JPanel b3 = new JPanel();
    			 //On positionne maintenant ces trois lignes en colonne
    			 b3.setLayout(new BoxLayout(b3, BoxLayout.PAGE_AXIS));
@@ -86,10 +84,12 @@ public class DominoFenetre extends JFrame{
 
     			this.setVisible(true);
 		}
+		//pioche du joueur
 		public PieceD Pioche(Joueur j1){
 					return j1.piocher(s);
 				
 			}
+		//methode qui permet de poser la première pièce
 		public void racine(JPanel pan){
 			int n=-1;
 			PieceD p;
@@ -102,11 +102,53 @@ public class DominoFenetre extends JFrame{
 			btnNewButton.setIcon(new ImageIcon(iconfilePath));
 			btnNewButton.setBorder(BorderFactory.createEmptyBorder());
 			pan.add(btnNewButton);
-			btnNewButton=event(btnNewButton);
-			GroupePieceD gp=new GroupePieceD(p);
+			btnNewButton=event(btnNewButton,p);
+			gp=new GroupePieceD(p);
 			s.enleverPieceSac(n);
 			
 		}
+		//réactualise le plateau
+		public void afficheGroupePiece(JPanel pan){
+			Piece[] pieces=gp.getPieces ();
+			int i,j;
+			int m=0;
+			JButton b[]=new JButton[28];
+			for(int k=0;k<pieces.length;k++){
+				PieceD p=(PieceD) pieces[k];
+				b[m]=new JButton();
+				i=p.getG();
+				j=p.getD();
+				String iconfilePath = this.getClass().getClassLoader().getResource("Dice"+i+j+".png").getFile();
+				b[m].setIcon(new ImageIcon(iconfilePath));
+				b[m].setBorder(BorderFactory.createEmptyBorder());
+				b[m].setContentAreaFilled(false);
+				b[m].setFocusable(false);
+				b[m].setPreferredSize((new Dimension(hauteur/8,largeur/28))); 
+				 pan.add(b[m]);
+				m++;
+				}
+		}
+				
+		//evenement quand le bouton pioche est pressé
+		public JButton pioche(JButton c){
+			JButton b=new JButton();
+			c.addActionListener(new ActionListener(){  
+           			 public void actionPerformed(ActionEvent e) 					{              
+                			PieceD p=Pioche(j1);
+					JButton b=new JButton("");
+					int i,j;
+					i=p.getG();
+					j=p.getD();
+					String iconfilePath = this.getClass().getClassLoader().getResource("Dice"+i+j+".png").getFile();
+					b.setIcon(new ImageIcon(iconfilePath));
+					b.setBorder(BorderFactory.createEmptyBorder());
+					b.setContentAreaFilled(false);
+					b.setFocusable(false);
+				}
+			});
+			return b;
+		}
+		//affiche les dominos qu'a le joueur
 		public void afficheMain(JPanel panel1){
 			main=j1.getPiece();	
 			int i,j=0;
@@ -125,17 +167,22 @@ public class DominoFenetre extends JFrame{
 				btnNewButton[k].setFocusable(false);
 				btnNewButton[k].setPreferredSize((new Dimension(hauteur/8,largeur/28))); 
 				 panel1.add(btnNewButton[k]);
-				btnNewButton[k]=event(btnNewButton[k]);
+				btnNewButton[k]=event(btnNewButton[k],p);
 				
 				//btnNewButton[k].addMouseMotionListener(new MesEvenementsSouris());
 				//btnNewButton[k].addMouseListener(new MesEvenementsSouris()); 
 				k++;
 			}
 		}
-		public JButton event (JButton b){
+		//met en vert les pieces selectionnées
+		public JButton event (JButton b,PieceD p){
 			b.addActionListener(new ActionListener(){  
            			 public void actionPerformed(ActionEvent e) {     
 					b.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+					if(selected[0]==null)
+						selected[0]=p;
+					else
+						selected[1]=p;
 				}
 				});
 			return b;

@@ -239,6 +239,10 @@ public class Piece {
 		return this.getCoCorres(p2.getCo());
 	}
 
+	public boolean peuventSeConnecter (Piece p2) {
+		return this.getCoCorres(p2).length > 0 ? true : false;
+	}
+
 	/**
 	*	Méthode qui renvoie les connexions correspondantes de deux pièces
 	*	@param p2 la pièce dont les connexions seront comparées à celles de this

@@ -1,7 +1,10 @@
 import java.util.*;
 
-//package ProjoPOOIG.domino.pieces;
-import ProjoPOOIG.domino.pieces.PieceD;
+
+import domino.piece.*;
+
+package domino.affichage;
+
 
 public class Sac{
 	private ArrayList<PieceD> sac;
@@ -25,7 +28,7 @@ public class Sac{
 	public int getNbPieces(){
 		return nbPieces;
 	}
-				
+
 	public void enleverPieceSac(int i){
 		nbPieces--;
 		sac.remove(i);

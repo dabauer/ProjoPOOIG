@@ -11,7 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import domino.piece.*;
+
 package domino.affichage;
+
 
 public class SaboteurFenetre extends JFrame{
 		private Dimension tailleEcran = java.awt.Toolkit.getDefaultToolkit().getScreenSize();

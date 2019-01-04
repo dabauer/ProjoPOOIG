@@ -1,8 +1,9 @@
 import java.util.*;
 import java.math.*;
 
-//import domino.pieces.PieceD;
+import domino.pieces.*;
 
+package domino.affichage;
 
 public class Joueur{
 	private String nom;
@@ -18,7 +19,7 @@ public class Joueur{
 		//puis autres fonctions
 		//ajouterPoint();
 		//perdu();
-		//remplir ou vider main 
+		//remplir ou vider main
 	}
 	public ArrayList<Piece> service(Sac s){
 		int [] t=new int[7];
@@ -32,12 +33,11 @@ public class Joueur{
 			main.add(p);
 			s.enleverPieceSac(n);
 		}
-		
+
 		return main;
 	}
 	public ArrayList<Piece> getPiece(){
 		return main;
 	}
-		
-}
 
+}

@@ -18,9 +18,37 @@ public class Test {
 	public static void testsGroupePiece() {
 		GroupePiece a = new GroupePiece(new PieceG(1,2,1,2));
 		Piece aa = new PieceG(1,2,1,2);
-		Connexion [] colibres = a.getCoCorresLibres(aa);
-		System.out.println(colibres.length);
-		//a.ajouterPiece(aa,colibres[0]);
+		a.ajouterPiece(aa,a.getCoCorresLibres(aa)[0]);
+		System.out.println("test ajout et getCocorreslibres a:10 (6+6-2) r: " + a.getCoCorresLibres(aa).length);
+		Piece ab = new PieceG(1,2,1,3);
+		Piece ac = new PieceG(1,3,1,2);
+		Piece ad = new PieceG(1,2,0,1);
+		Piece ae = new PieceG(1,2,0,1);
+		Piece af = new PieceG(1,2,0,1);
+		Piece ag = new PieceG(1,2,0,1);
+
+		System.out.print("Ajout de 6 autres pieces ");
+		System.out.println((a.ajouterPiece(ab) &&
+			a.ajouterPiece(ac) &&
+			a.ajouterPiece(ad) &&
+			a.ajouterPiece(ae) &&
+			a.ajouterPiece(af) &&
+			a.ajouterPiece(ag) ? "OK" : "Non"));
+		System.out.println("Test getpieces a : 8 r:" + a.getPieces().length);
+		//r:8 OK
+		System.out.println("test ajout et getColibres a:" + (int)(8*6 - (7*2)) + " r: " + a.getCoLibres().length);
+		//r:34
+
+		//=============Domino=================
+		GroupePiece d = new GroupePieceD(new PieceD(1,2));
+		System.out.println("test ajoutpiece avec 1,3" + d.ajouterPiece(new PieceD(1,3)));
+		System.out.println("test ajoutpiece avec 2,1" + d.ajouterPiece(new PieceD(2,1)));
+		System.out.println("test ajoutpiece avec 2 cocorrespondantes" + d.ajouterPiece(new PieceD(1,1)));
+		System.out.println("test de la methode super avec 3,1 pour avoir deux bouts avec 1" + d.ajouterPiece(new PieceD(1,3),d.getCoLibres()[0]));
+		System.out.println("test ajoutpiece" + d.ajouterPiece(new PieceD(1,1)));
+		System.out.println(d.getPieces().length + "nbcolinre" + d.getCoLibres().length + d.getCoLibres()[0] + "" + d.getCoLibres()[1]);
+
+
 		//System.out.println(a.getPieces().length);
 	}
 

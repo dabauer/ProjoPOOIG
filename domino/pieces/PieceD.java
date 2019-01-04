@@ -28,4 +28,8 @@ public class PieceD extends Piece {
     this(makeTab2(val1,val2));
   }
 
+  public int [] getVal () {
+    return this.valeur;
+  }
+
 }

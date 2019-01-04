@@ -33,8 +33,10 @@ public class GroupePiece implements Jouable {
     Piece [] pieces = this.getPieces();
     Connexion [] r = new Connexion[0];
     for (Piece p : pieces) {
-      for (Connexion c : p.getCoLibres()) {
-        r = c.addCoToList(r);
+      if (p.getCoLibres() != null) {
+        for (Connexion c : p.getCoLibres()) {
+          r = c.addCoToList(r);
+        }
       }
     }
     return r.length > 0 ? r : null;
@@ -68,6 +70,15 @@ public class GroupePiece implements Jouable {
   public boolean ajouterPiece(Piece p, Connexion c) {
     if (c.estLibre() && this.contientCo(c)) return c.ajouterPiece(p);
     return false;
+  }
+
+
+  /**
+  * Methode test pour ajouter beaucoup de Pieces rapidement
+  * ============A SUPPRIMER===========
+  */
+  public boolean ajouterPiece (Piece p) {
+      return this.ajouterPiece(p,this.getCoCorresLibres(p)[0]);
   }
 
 }

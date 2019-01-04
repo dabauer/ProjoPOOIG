@@ -4,7 +4,7 @@
 
 package domino.pieces;
 import domino.pieces.*;
-public class GroupePiece implements Jouable {
+public class GroupePiece {
 
   private Piece racine;
 

@@ -116,7 +116,7 @@ public class Piece {
 		String r = "";
 		r+= "Piece avec " + this.connexions.length + " connexions dont " + this.getNbCoLibres() + " libres. valdescos:";
 		for (Connexion c : this.connexions) {
-			r+= c.getVal() + " " + c.estLibre() + ",";
+			r+= c.getVal() + " " + (c.estLibre() ? "lib" : "non") + ",";
 		}
 		return r + "\n";
 	}

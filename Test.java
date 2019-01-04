@@ -12,7 +12,32 @@ public class Test {
 		//testsPieceConnexion();
 		//testsPieceD();
 		//testsPieceP();
-		testsGroupePiece();
+		//testsGroupePiece();
+		testsSac();
+	}
+
+	public static void testsSac () {
+		Sac a = new Sac();
+		Piece aa = new Piece(1,1);
+		Piece ab = new Piece(2,2);
+		Piece ac = new Piece(4,4);
+		Piece ad = new Piece(3,3);
+		Piece ae = new Piece(5,5);
+		Piece [] b = {aa,ab,ac,ad,ae};
+		a.ajouterPiece(b);
+		System.out.println(a.getContenu().length);
+		System.out.println(a.getPieceRand());
+		System.out.println(a.getContenu().length);
+
+		Sac x = new SacD();
+		System.out.println(x.getContenu().length);
+
+		Sac p = new SacP(2,2);
+		System.out.println(p.getContenu()[0]);
+		System.out.println(p.getContenu()[1]);
+		System.out.println(p.getContenu()[2]);
+		System.out.println(p.getContenu()[3]);
+
 	}
 
 	public static void testsGroupePiece() {
@@ -46,7 +71,7 @@ public class Test {
 		System.out.println("test ajoutpiece avec 2 cocorrespondantes" + d.ajouterPiece(new PieceD(1,1)));
 		System.out.println("test de la methode super avec 3,1 pour avoir deux bouts avec 1" + d.ajouterPiece(new PieceD(1,3),d.getCoLibres()[0]));
 		System.out.println("test ajoutpiece" + d.ajouterPiece(new PieceD(1,1)));
-		System.out.println(d.getPieces().length + "nbcolinre" + d.getCoLibres().length + d.getCoLibres()[0] + "" + d.getCoLibres()[1]);
+		//System.out.println(d.getPieces().length + "nbcolinre" + d.getCoLibres().length + d.getCoLibres()[0] + "" + d.getCoLibres()[1]);
 
 
 		//System.out.println(a.getPieces().length);
